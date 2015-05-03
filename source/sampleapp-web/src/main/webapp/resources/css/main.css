@@ -65,7 +65,7 @@ body {
 	float: right;
 }
 .navbar-item a:hover {
-	font-size: 14px !important;
+	color: orange !important;
 }
 .navbar-item#list {
 	float: left;
@@ -80,6 +80,25 @@ body {
     height: 100%;
     position: fixed;
     background-color: #F0F0F0;
+}
+.left-menu a {
+	font-size: 14px !important;
+	float: right;
+	color: black !important;
+	padding: 10px 15px 10px 0px !important;
+}
+.left-menu a:hover {
+	font-size: 14px !important;
+	float: right;
+	color: orange !important;
+	padding: 10px 15px 10px 0px !important;
+}
+
+.left-menu a:active {
+	font-size: 14px !important;
+	float: right;
+	color: orange !important;
+	padding: 10px 15px 10px 0px !important;
 }
 .content {
     width: 85%;
@@ -101,6 +120,10 @@ a {
     color: #D2D2D2;
     text-decoration: none;
     outline: 0;
+}
+a:hover {
+    color: orange;
+    text-decoration: none;
 }
 a:link {
     color: #D2D2D2;

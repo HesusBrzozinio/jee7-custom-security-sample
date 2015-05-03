@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.kb.controllers.security.sys.SysAuth;
+import pl.kb.controllers.security.SysAuth;
 
 @WebFilter("/html/sys/secured/*")
 public class LoginFilter implements Filter {

@@ -12,9 +12,15 @@ body {
     background-color: #fff;
     color: #333;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1.42857;
     margin: 0;
+}
+.logo-image {
+	float: left;
+	box-sizing: content-box;
+	width: 40px;
+	height: 40px;
 }
 .fixed-nav-bar {
   position: fixed;
@@ -45,19 +51,29 @@ body {
 }
 .navbar-right {
     float: right !important;
-}
-.navbar-collapse.collapse {
-    display: block !important;
-    height: auto !important;
-    padding-bottom: 0px;
-    overflow: visible !important;
-}
-.navbar-collapse {
     width: auto;
-    border-top: 0px none;
-    box-shadow: none;
-    padding-right: 0px;
-    padding-left: 0px;
+}
+.navbar-item {
+	height: 45px;
+}
+.navbar-item ul {
+	padding: 0px;
+	margin: 0px;
+}
+.navbar-item a {
+	font-size: 12px !important;
+	float: right;
+}
+.navbar-item a:hover {
+	color: orange !important;
+}
+.navbar-item#list {
+	float: left;
+}
+.navbar-menu li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
 }
 .left-menu {
     width: 15%;
@@ -65,11 +81,31 @@ body {
     position: fixed;
     background-color: #F0F0F0;
 }
+.left-menu a {
+	font-size: 14px !important;
+	float: right;
+	color: black !important;
+	padding: 10px 15px 10px 0px !important;
+}
+.left-menu a:hover {
+	font-size: 14px !important;
+	float: right;
+	color: orange !important;
+	padding: 10px 15px 10px 0px !important;
+}
+
+.left-menu a:active {
+	font-size: 14px !important;
+	float: right;
+	color: orange !important;
+	padding: 10px 15px 10px 0px !important;
+}
 .content {
     width: 85%;
     height: auto;
     position: absolute;
     right: 0;
+    padding-right: 20px;
 }
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
     color: #FFF;
@@ -83,10 +119,23 @@ body {
 a {
     color: #D2D2D2;
     text-decoration: none;
+    outline: 0;
+}
+a:hover {
+    color: orange;
+    text-decoration: none;
+}
+a:link {
+    color: #D2D2D2;
+    text-decoration: none;
+}
+a:active {
+	color: orange;
+	text-decoration: none;
 }
 .nav {
     list-style: outside none none;
 }
 .ui-growl {
-	top: 46px;
+	top: 46px !important;
 }
