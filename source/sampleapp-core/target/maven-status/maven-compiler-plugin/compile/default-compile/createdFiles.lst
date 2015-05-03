@@ -1,0 +1,9 @@
+model\dto\Book.class
+model\dto\valueholder\Quantity.class
+service\BookServiceBean.class
+service\security\UserAuthenticationServiceLocal.class
+service\BookServiceLocal.class
+model\entity\User$UserState.class
+model\entity\User.class
+model\security\UserDTO.class
+service\security\UserAuthenticationServiceBean.class

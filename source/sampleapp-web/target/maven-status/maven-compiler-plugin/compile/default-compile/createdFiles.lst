@@ -1,0 +1,6 @@
+pl\kb\webfilters\NoCacheFilter.class
+pl\kb\controllers\ShoppingCartBean.class
+pl\kb\controllers\security\NavigationBean.class
+pl\kb\controllers\security\SysAuth.class
+pl\kb\webfilters\LoginFilter.class
+pl\kb\controllers\BooksViewController.class
