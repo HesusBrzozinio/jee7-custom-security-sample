@@ -27,12 +27,12 @@ public class NavigationBean implements Serializable {
 		return "/info.xhtml";
 	}
 
-	public String redirectToWelcome() {
-		return "/html/sys/secured/adminOnly.xhtml?faces-redirect=true";
+	public String redirectToUsersManagement() {
+		return "/html/sys/secured/users.xhtml?faces-redirect=true";
 	}
 
-	public String toWelcome() {
-		return "/html/sys/secured/adminOnly.xhtml";
+	public String toUsersManagement() {
+		return "/html/sys/secured/users.xhtml";
 	}
 
 }

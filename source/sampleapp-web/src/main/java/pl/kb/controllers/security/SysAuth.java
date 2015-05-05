@@ -34,10 +34,10 @@ public class SysAuth implements Serializable {
 
 	public String doLogin() {
 		LOG.debug("doLogin invoked");
-		user = userService.find(username, password);
+		user = userService.authenticate(username, password);
 		password = null;
 		if (user != null) {
-			return navigationBean.redirectToWelcome();
+			return navigationBean.redirectToUsersManagement();
 		}
 
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,

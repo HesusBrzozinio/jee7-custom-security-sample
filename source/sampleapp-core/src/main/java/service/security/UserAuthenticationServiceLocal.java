@@ -7,5 +7,5 @@ import model.security.UserDTO;
 @Local
 public interface UserAuthenticationServiceLocal {
 
-	UserDTO find(final String username, final String password);
+	UserDTO authenticate(final String username, final String password);
 }

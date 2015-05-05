@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/html/templates/layout.xhtml">
+	<ui:define name="body">
+		<p:dataTable var="user" value="#{userManagement.allUsers}">
+			<p:column headerText="ID">
+				<h:outputText value="#{user.id}" />
+			</p:column>
+
+			<p:column headerText="Name">
+				<h:outputText value="#{user.username}" />
+			</p:column>
+
+			<p:column headerText="Status">
+				<h:outputText value="#{user.state}" />
+			</p:column>
+
+			<p:column headerText="Roles">
+				<p:dataList value="#{user.roles}" var="role" type="definition">
+					#{role}
+				</p:dataList>
+			</p:column>
+
+			<p:column>
+				<h:form id="form_#{user.id}" prependId="false">
+					<p:commandButton icon="ui-icon-search" title="View">
+
+					</p:commandButton>
+				</h:form>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+
+</html>

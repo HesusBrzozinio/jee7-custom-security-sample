@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +31,22 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state")
 	private UserState state;
+
+	@ManyToMany
+	@JoinTable(name = "user_role")
+	public Set<Role> role;
+
+	public Set<Role> getRoles() {
+		return role;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.role = roles;
+	}
+
+	public int getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -52,12 +72,14 @@ public class User {
 		this.state = state;
 	}
 
-	public int geId() {
-		return id;
-	}
-
 	public enum UserState {
 		ACTIVE, INACTIVE, BLOCKED;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password
+				+ ", state=" + state + ", role=" + role + "]";
 	}
 
 }

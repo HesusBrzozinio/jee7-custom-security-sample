@@ -1,11 +1,16 @@
 package model.security;
 
-import java.util.List;
+import java.util.Set;
+
+import model.entity.Role.UserRoleName;
+import model.entity.User.UserState;
 
 public class UserDTO {
 
+	private int id;
 	private String username;
-	private List<String> roles;
+	private UserState state;
+	private Set<UserRoleName> roles;
 
 	public String getUsername() {
 		return username;
@@ -15,12 +20,27 @@ public class UserDTO {
 		this.username = username;
 	}
 
-	public List<String> getRoles() {
+	public Set<UserRoleName> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<String> roles) {
+	public void setRoles(Set<UserRoleName> roles) {
 		this.roles = roles;
 	}
 
+	public void setState(UserState state) {
+		this.state = state;
+	}
+
+	public UserState getState() {
+		return state;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
