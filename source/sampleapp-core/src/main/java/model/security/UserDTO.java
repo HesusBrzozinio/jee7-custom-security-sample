@@ -10,6 +10,7 @@ public class UserDTO {
 
 	private int id;
 	private String username;
+	private String password;
 	private UserState state;
 	private List<UserRoleName> roles = new ArrayList<>();
 
@@ -45,10 +46,18 @@ public class UserDTO {
 		this.id = id;
 	}
 
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [id=" + id + ", username=" + username + ", state="
 				+ state + ", roles=" + roles + "]";
 	}
-
 }

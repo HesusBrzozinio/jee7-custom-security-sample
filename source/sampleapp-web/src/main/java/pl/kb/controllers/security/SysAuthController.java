@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import model.entity.Role.UserRoleName;
 import model.security.UserDTO;
 
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,8 @@ import service.security.UserAuthenticationServiceLocal;
 public class SysAuthController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(SysAuthController.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(SysAuthController.class);
 	private UserDTO user;
 	private String username;
 	private String password;
@@ -68,6 +70,14 @@ public class SysAuthController implements Serializable {
 					LOG);
 			return false;
 		}
+	}
+
+	public String createAccount() {
+		LOG.info("{}", "edit invoked");
+		RequestContext.getCurrentInstance().openDialog(
+				"/html/sys/createAccountPanel");
+		
+		return null;
 	}
 
 	public String getUsername() {

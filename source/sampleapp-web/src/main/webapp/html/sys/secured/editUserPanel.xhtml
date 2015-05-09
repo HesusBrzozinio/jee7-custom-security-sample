@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 <h:head>
 	<f:facet name="first">
@@ -14,6 +15,7 @@
 </h:head>
 
 <h:body>
+	<o:importConstants type="model.entity.Role.UserRoleName" />
 	<h:form id="editUserForm">
 		<p:panelGrid columns="2"
 			rendered="#{not empty userManagement.actualUser}" columnClasses="">
@@ -27,7 +29,7 @@
 			<h:outputText value="Roles:" />
 			<p:selectManyMenu id="usrRoles"
 				value="#{userManagement.actualUserRoles}" filterMatchMode="contains"
-				showCheckbox="true">
+				converter="omnifaces.GenericEnumConverter" showCheckbox="true">
 				<f:selectItems value="#{userManagement.allRoles}" var="role"
 					itemLabel="#{role}" itemValue="#{role}" />
 			</p:selectManyMenu>

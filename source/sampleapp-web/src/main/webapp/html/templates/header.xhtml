@@ -20,15 +20,16 @@
 				<div id="list" class="navbar-item">
 					<ul class="navbar-menu">
 						<li><p:link id="login-link" class="navbar-brand"
-								outcome="#{navigationBean.toLogin()}" value="Zaloguj"
+								outcome="#{navigationBean.toLogin()}" value="Log-in"
 								rendered="#{not sysAuth.loggedIn}" /></li>
 
 						<li><p:commandLink id="logout-link" class="navbar-brand"
-								action="#{sysAuth.doLogout()}" value="Wyloguj"
+								action="#{sysAuth.doLogout()}" value="Log-out"
 								rendered="#{sysAuth.loggedIn}" /></li>
 
 						<li><p:commandLink id="item1-link" class="navbar-brand"
-								actionListener="#{mainPage.buttonAction}">ITEM 1</p:commandLink></li>
+								action="#{sysAuth.createAccount()}" value="Create Account"
+								rendered="#{not sysAuth.loggedIn}" /></li>
 
 						<li><p:commandLink id="item2-link" class="navbar-brand"
 								actionListener="#{mainPage.buttonAction}">ITEM 2</p:commandLink></li>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import model.entity.Role.UserRoleName;
@@ -17,7 +18,9 @@ import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pl.kb.controllers.security.NavigationController;
 import pl.kb.utils.ExceptionHandler;
+import service.RoleServiceLocal;
 import service.UserServiceLocal;
 
 @ManagedBean(name = "userManagement")
@@ -31,32 +34,56 @@ public class UserManagementController implements Serializable {
 	private List<UserRoleName> allRoles;
 	private UserDTO actualUser;
 	private UserState actualUserState;
-	private UserRoleName[] actualUserRoles;
+	private List<UserRoleName> actualUserRoles;
 
 	@EJB
 	private UserServiceLocal userService;
 
+	@EJB
+	private RoleServiceLocal roleService;
+
+	@ManagedProperty(value = "#{navigationBean}")
+	private NavigationController navigationBean;
+
 	@PostConstruct
 	private void init() {
 		allUsers = userService.getAllUsers();
-		allRoles = userService.getAllRoles();
+		allRoles = roleService.getAllRoleNames();
+		actualUser = new UserDTO();
 	}
 
+	/**
+	 * Show modal panel for user edition
+	 */
 	public void editUserData() {
 		LOG.info("{}", "edit invoked");
 		RequestContext.getCurrentInstance().openDialog(
 				"/html/sys/secured/editUserPanel");
 	}
 
+	/**
+	 * Save edited user data and close modal edit panel.
+	 */
 	public void closeEditPanel() {
 		actualUser.setState(actualUserState);
-
+		actualUser.setRoles(actualUserRoles);
+		userService.updateUser(actualUser);
 		RequestContext.getCurrentInstance().closeDialog(null);
 		LOG.info("{}", "edit panel closed");
 	}
 
+	/**
+	 * Invoked by AJAX when user close modal panel
+	 */
 	public void onUserModified(final SelectEvent event) {
 		LOG.info("{}", "onModified invoked");
+		init();
+	}
+
+	public String createAccount() {
+		RequestContext.getCurrentInstance().closeDialog(null);
+		LOG.info("{}", "account created");
+		return navigationBean.toLogin();
 	}
 
 	public boolean inState(final UserDTO user, final String state) {
@@ -86,8 +113,7 @@ public class UserManagementController implements Serializable {
 
 	public void setActualUser(final UserDTO user) {
 		this.actualUser = user;
-		this.actualUserRoles = user.getRoles().toArray(
-				new UserRoleName[user.getRoles().size()]);
+		this.actualUserRoles = user.getRoles();
 		this.actualUserState = user.getState();
 	}
 
@@ -107,11 +133,11 @@ public class UserManagementController implements Serializable {
 		this.actualUserState = actualUserState;
 	}
 
-	public UserRoleName[] getActualUserRoles() {
+	public List<UserRoleName> getActualUserRoles() {
 		return actualUserRoles;
 	}
 
-	public void setActualUserRoles(UserRoleName[] actualUserRoles) {
+	public void setActualUserRoles(List<UserRoleName> actualUserRoles) {
 		this.actualUserRoles = actualUserRoles;
 	}
 
@@ -119,4 +145,7 @@ public class UserManagementController implements Serializable {
 		return allRoles;
 	}
 
+	public void setNavigationBean(NavigationController navigationBean) {
+		this.navigationBean = navigationBean;
+	}
 }

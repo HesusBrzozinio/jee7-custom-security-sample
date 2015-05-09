@@ -32,17 +32,18 @@ public class UserAuthenticationServiceBean implements
 	@Override
 	public UserDTO authenticate(final String username, final String password) {
 
-		LOG.info("fetching active user: {}", username);
-		final String jpq = "from User u join fetch u.role where u.name=:name and u.password=:password and u.state=:state";
-		final TypedQuery<User> query = manager.createQuery(jpq, User.class);
-
 		try {
+			LOG.info("fetching active user: {}", username);
+			final String jpq = "from User u join fetch u.role where u.name=:name and u.password=:password and u.state=:state";
+			final TypedQuery<User> query = manager.createQuery(jpq, User.class);
+
 			final User user = query.setParameter("name", username)
 					.setParameter("password", password)
 					.setParameter("state", User.UserState.ACTIVE)
 					.getSingleResult();
 
 			return transformer.toDTO(user);
+
 		} catch (final NoResultException ex) {
 			LOG.warn("No active user", ex);
 			return null;
