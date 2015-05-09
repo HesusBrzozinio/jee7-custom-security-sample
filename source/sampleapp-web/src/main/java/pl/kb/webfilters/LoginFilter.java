@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.kb.controllers.security.SysAuth;
+import pl.kb.controllers.security.SysAuthController;
 
 @WebFilter("/html/sys/secured/*")
 public class LoginFilter implements Filter {
@@ -20,7 +20,7 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 
-		final SysAuth loginBean = (SysAuth) ((HttpServletRequest) request)
+		final SysAuthController loginBean = (SysAuthController) ((HttpServletRequest) request)
 				.getSession().getAttribute("sysAuth");
 
 		// For the first application request there is no loginBean in the

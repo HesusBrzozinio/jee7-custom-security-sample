@@ -139,3 +139,6 @@ a:active {
 .ui-growl {
 	top: 46px !important;
 }
+.orange {
+	background-color: orange;
+}

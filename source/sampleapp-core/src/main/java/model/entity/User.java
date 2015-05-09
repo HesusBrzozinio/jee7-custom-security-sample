@@ -1,6 +1,6 @@
 package model.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,13 +34,13 @@ public class User {
 
 	@ManyToMany
 	@JoinTable(name = "user_role")
-	public Set<Role> role;
+	private List<Role> role;
 
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return role;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.role = roles;
 	}
 

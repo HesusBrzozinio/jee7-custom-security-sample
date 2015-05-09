@@ -1,5 +1,6 @@
 package service.security;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,6 +14,8 @@ import model.security.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import service.UserTransformationBean;
+
 @Stateless
 public class UserAuthenticationServiceBean implements
 		UserAuthenticationServiceLocal {
@@ -23,11 +26,14 @@ public class UserAuthenticationServiceBean implements
 	@PersistenceContext
 	private EntityManager manager;
 
+	@EJB
+	private UserTransformationBean transformer;
+
 	@Override
 	public UserDTO authenticate(final String username, final String password) {
 
 		LOG.info("fetching active user: {}", username);
-		final String jpq = "from User u where u.name=:name and u.password=:password and u.state=:state";
+		final String jpq = "from User u join fetch u.role where u.name=:name and u.password=:password and u.state=:state";
 		final TypedQuery<User> query = manager.createQuery(jpq, User.class);
 
 		try {
@@ -35,9 +41,8 @@ public class UserAuthenticationServiceBean implements
 					.setParameter("password", password)
 					.setParameter("state", User.UserState.ACTIVE)
 					.getSingleResult();
-			final UserDTO usr = new UserDTO();
-			usr.setUsername(user.getName());
-			return usr;
+
+			return transformer.toDTO(user);
 		} catch (final NoResultException ex) {
 			LOG.warn("No active user", ex);
 			return null;

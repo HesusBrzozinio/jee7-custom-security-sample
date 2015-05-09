@@ -1,6 +1,7 @@
 package model.security;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.Role.UserRoleName;
 import model.entity.User.UserState;
@@ -10,7 +11,7 @@ public class UserDTO {
 	private int id;
 	private String username;
 	private UserState state;
-	private Set<UserRoleName> roles;
+	private List<UserRoleName> roles = new ArrayList<>();
 
 	public String getUsername() {
 		return username;
@@ -20,11 +21,11 @@ public class UserDTO {
 		this.username = username;
 	}
 
-	public Set<UserRoleName> getRoles() {
+	public List<UserRoleName> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<UserRoleName> roles) {
+	public void setRoles(List<UserRoleName> roles) {
 		this.roles = roles;
 	}
 
@@ -43,4 +44,11 @@ public class UserDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", username=" + username + ", state="
+				+ state + ", roles=" + roles + "]";
+	}
+
 }

@@ -2,10 +2,9 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +26,9 @@ public class UserServiceBean implements UserServiceLocal {
 	@PersistenceContext
 	private EntityManager manager;
 
+	@EJB
+	private UserTransformationBean transformer;
+
 	@Override
 	public List<UserDTO> getAllUsers() {
 		try {
@@ -34,42 +36,33 @@ public class UserServiceBean implements UserServiceLocal {
 			final TypedQuery<User> query = manager.createQuery(jpq, User.class);
 			final List<User> users = query.getResultList();
 
-			return transform(users);
+			return transformer.toDTO(users);
 		} catch (Exception ex) {
 			LOG.error(ex.getLocalizedMessage(), ex);
 			return Collections.<UserDTO> emptyList();
 		}
 	}
 
-	/**
-	 * Transform list of entities to list of DTO.
-	 */
-	private List<UserDTO> transform(final List<User> users) {
-		final List<UserDTO> usersDto = new ArrayList<UserDTO>(users.size());
-		users.forEach(u -> {
-			usersDto.add(transform(u));
-		});
-		return usersDto;
+	@Override
+	public List<UserRoleName> getAllRoles() {
+		try {
+			final String jpq = "from Role r";
+			final TypedQuery<Role> query = manager.createQuery(jpq, Role.class);
+			final List<Role> roles = query.getResultList();
+			return getRoleNames(roles);
+		} catch (Exception ex) {
+			LOG.error(ex.getLocalizedMessage(), ex);
+			return Collections.<UserRoleName> emptyList();
+		}
 	}
 
-	/**
-	 * Transform entity to DTO
-	 */
-	private UserDTO transform(final User user) {
-		final UserDTO usr = new UserDTO();
-		usr.setId(user.getId());
-		usr.setUsername(user.getName());
-		usr.setState(user.getState());
-		usr.setRoles(transform(user.getRoles()));
-		return usr;
-	}
-
-	private Set<UserRoleName> transform(Set<Role> roles) {
-		final Set<UserRoleName> rls = new HashSet<Role.UserRoleName>(
+	private List<UserRoleName> getRoleNames(List<Role> roles) {
+		final List<UserRoleName> names = new ArrayList<UserRoleName>(
 				roles.size());
 		roles.forEach(r -> {
-			rls.add(r.getName());
+			names.add(r.getName());
 		});
-		return rls;
+		return names;
 	}
+
 }
