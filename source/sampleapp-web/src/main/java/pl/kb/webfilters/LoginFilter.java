@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.entity.Role.UserRoleName;
 import pl.kb.controllers.security.SysAuthController;
 
 @WebFilter("/html/sys/secured/*")
@@ -32,6 +33,12 @@ public class LoginFilter implements Filter {
 					.getContextPath();
 			((HttpServletResponse) response).sendRedirect(contextPath
 					+ "/html/sys/login.xhtml");
+		} else if (loginBean != null
+				&& !loginBean.isUserInRole(UserRoleName.ADMIN.name())) {
+			String contextPath = ((HttpServletRequest) request)
+					.getContextPath();
+			((HttpServletResponse) response).sendRedirect(contextPath
+					+ "/html/sys/permission_error.xhtml");
 		}
 
 		chain.doFilter(request, response);

@@ -37,4 +37,6 @@ public interface UserServiceLocal {
 	 *            user to create
 	 */
 	void createUser(final UserDTO actualUser);
+
+	boolean exists(final String username);
 }

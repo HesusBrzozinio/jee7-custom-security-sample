@@ -12,9 +12,9 @@ import javax.persistence.Id;
 public class Role {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id")
-	private int id;
+	private Integer id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "name")
@@ -28,7 +28,7 @@ public class Role {
 		this.name = name;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

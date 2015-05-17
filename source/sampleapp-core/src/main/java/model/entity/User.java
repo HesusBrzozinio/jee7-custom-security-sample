@@ -18,9 +18,9 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private int id;
+	private Integer id;
 
 	@Column(name = "name")
 	private String name;
@@ -44,7 +44,7 @@ public class User {
 		this.role = roles;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

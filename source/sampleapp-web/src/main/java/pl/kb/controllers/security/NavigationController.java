@@ -19,12 +19,12 @@ public class NavigationController implements Serializable {
 		return "/html/sys/login.xhtml";
 	}
 
-	public String redirectToInfo() {
-		return "/info.xhtml?faces-redirect=true";
+	public String redirectHome() {
+		return "/html/home.xhtml?faces-redirect=true";
 	}
 
-	public String toInfo() {
-		return "/info.xhtml";
+	public String toHome() {
+		return "/html/index.xhtml";
 	}
 
 	public String redirectToUsersManagement() {

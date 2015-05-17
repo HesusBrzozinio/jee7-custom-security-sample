@@ -1,6 +1,8 @@
 package pl.kb.controllers.security;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -37,11 +39,10 @@ public class SysAuthController implements Serializable {
 	private UserAuthenticationServiceLocal userService;
 
 	public String doLogin() {
-		LOG.debug("doLogin invoked");
 		user = userService.authenticate(username, password);
 		password = null;
 		if (user != null) {
-			return navigationBean.redirectToUsersManagement();
+			return navigationBean.toHome();
 		}
 
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -73,10 +74,12 @@ public class SysAuthController implements Serializable {
 	}
 
 	public String createAccount() {
-		LOG.info("{}", "edit invoked");
+		final Map<String, Object> options = new HashMap<>();
+		options.put("modal", false);
+		options.put("draggable", false);
+
 		RequestContext.getCurrentInstance().openDialog(
-				"/html/sys/createAccountPanel");
-		
+				"/html/sys/createAccountPanel", options, null);
 		return null;
 	}
 

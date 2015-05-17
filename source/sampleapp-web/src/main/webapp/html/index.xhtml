@@ -7,24 +7,55 @@
 
 <ui:composition template="/html/templates/layout.xhtml">
 	<ui:define name="body">
-		<h:form id="Form">
-			<p:dataTable var="car" value="#{mainPage.cars}">
-				<p:column headerText="Id">
-					<h:outputText value="#{car.id}" />
-				</p:column>
+		<h:form id="book-form">
+			<p:dataGrid var="book" value="#{booksView.books}" columns="3"
+				layout="grid" rows="12" paginator="true" id="books"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
 
-				<p:column headerText="Year">
-					<h:outputText value="#{car.year}" />
-				</p:column>
+				<f:facet name="header">Books for Sale</f:facet>
 
-				<p:column headerText="Brand">
-					<h:outputText value="#{car.brand}" />
-				</p:column>
+				<p:panel header="#{book.title}" style="text-align:left">
 
-				<p:column headerText="Color">
-					<h:outputText value="#{car.color}" />
-				</p:column>
-			</p:dataTable>
+					<div class="ui-grid ui-grid-responsive">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-6">
+								<p:graphicImage library="images" name="design-book.jpg"
+									width="120" height="120" />
+							</div>
+							<div class="ui-grid-col-6">
+								<div class="ui-grid-row">
+									Autor:
+									<h:outputText value="#{book.author}" />
+								</div>
+								<div class="ui-grid-row">
+									Data wydania:
+									<h:outputText value="#{book.year}">
+										<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+									</h:outputText>
+								</div>
+								<div class="ui-grid-row">
+									Wydawnictwo:
+									<h:outputText value="#{book.publisher}" />
+								</div>
+								<div class="ui-grid-row">
+									Oprawa:
+									<h:outputText value="#{book.publisher}" />
+								</div>
+								<div class="ui-grid-row">
+									Cena:
+									<h:outputText value="#{book.price}">
+										<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+									</h:outputText>
+									zł
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</p:panel>
+
+			</p:dataGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -5,9 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import model.entity.Role.UserRoleName;
 import model.entity.User.UserState;
@@ -81,9 +85,21 @@ public class UserManagementController implements Serializable {
 	}
 
 	public String createAccount() {
+		try {
+			userService.createUser(actualUser);
+		} catch (final Exception ex) {
+			ExceptionHandler
+					.handleException(ex, "account creation failed", LOG);
+			final FacesMessage message = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"Account creation failed! Please try again.",
+					"Account creation failed! Please try again.");
+			throw new ValidatorException(message);
+		}
+
 		RequestContext.getCurrentInstance().closeDialog(null);
 		LOG.info("{}", "account created");
-		return navigationBean.toLogin();
+		return null;
 	}
 
 	public boolean inState(final UserDTO user, final String state) {
@@ -105,6 +121,31 @@ public class UserManagementController implements Serializable {
 	public String deactivate() {
 		actualUser.setState(UserState.BLOCKED);
 		return null;
+	}
+
+	public void validateSamePassword(final FacesContext context,
+			final UIComponent toValidate, final Object value) {
+
+		final String confirmPassword = (String) value;
+		if (!confirmPassword.equals(actualUser.getPassword())) {
+			final FacesMessage message = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR, "Passwords do not match!",
+					"Passwords do not match!");
+			throw new ValidatorException(message);
+		}
+	}
+
+	public void validateUserExists(final FacesContext context,
+			final UIComponent toValidate, final Object value) {
+
+		final String username = (String) value;
+		if (userService.exists(username)) {
+			final FacesMessage message = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"User with this login exists! Try with different one.",
+					"User with this login exists! Try with different one.");
+			throw new ValidatorException(message);
+		}
 	}
 
 	public List<UserDTO> getAllUsers() {

@@ -80,9 +80,22 @@ public class UserServiceBean implements UserServiceLocal {
 		try {
 			final User user = factoryService.create(actualUser);
 			manager.persist(user);
-			LOG.info("user successfuly persisted id={}", user.getId());
+			LOG.info("user successfuly persisted {}", user);
 		} catch (final Exception ex) {
 			LOG.error("error while creating user {}", actualUser, ex);
+		}
+	}
+
+	@Override
+	public boolean exists(final String username) {
+		try {
+			final String jpql = "SELECT COUNT(u) FROM User u WHERE u.name = :name";
+			final Long number = manager.createQuery(jpql, Long.class)
+					.setParameter("name", username).getSingleResult();
+			return number > 0;
+		} catch (final Exception ex) {
+			LOG.error("username check error for name={}", username, ex);
+			return true;
 		}
 	}
 
