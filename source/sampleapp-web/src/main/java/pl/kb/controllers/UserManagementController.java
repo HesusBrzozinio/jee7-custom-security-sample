@@ -87,6 +87,7 @@ public class UserManagementController implements Serializable {
 	public String createAccount() {
 		try {
 			userService.createUser(actualUser);
+			init();
 		} catch (final Exception ex) {
 			ExceptionHandler
 					.handleException(ex, "account creation failed", LOG);

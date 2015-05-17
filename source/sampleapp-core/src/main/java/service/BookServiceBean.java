@@ -8,42 +8,41 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
+import model.dto.Book;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import model.dto.Book;
 
 @Stateless
 public class BookServiceBean implements BookServiceLocal {
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(BookServiceBean.class);
-	private List<Book> cars;
+	private List<Book> books;
 
 	@PostConstruct
 	private void init() {
-		LOG.info("created");
-		cars = new ArrayList<Book>();
-		cars.add(new Book(1, new Date(), "Kroniki ptaka nakręcacza",
+		books = new ArrayList<Book>();
+		books.add(new Book(1, new Date(), "Kroniki ptaka nakręcacza",
 				"czerwony", "Haruki Murakami", new BigDecimal(23.50)));
-		cars.add(new Book(2, new Date(), "1Q84", "granatowy",
+		books.add(new Book(2, new Date(), "1Q84", "granatowy",
 				"Haruki Murakami", new BigDecimal(23.50)));
-		cars.add(new Book(3, new Date(), "Nagłe pukanie do drzwi", "czarny",
+		books.add(new Book(3, new Date(), "Nagłe pukanie do drzwi", "czarny",
 				"Etgar Keret", new BigDecimal(23.50)));
-		cars.add(new Book(4, new Date(), "Kobiety", "zielony",
+		books.add(new Book(4, new Date(), "Kobiety", "zielony",
 				"Charles Bukowski", new BigDecimal(23.50)));
-		cars.add(new Book(5, new Date(), "Rury", "niebieski", "Etgar Keret",
+		books.add(new Book(5, new Date(), "Rury", "niebieski", "Etgar Keret",
 				new BigDecimal(23.50)));
-		cars.add(new Book(6, new Date(), "Norwegian Wood", "srebrny",
+		books.add(new Book(6, new Date(), "Norwegian Wood", "srebrny",
 				"Haruki Murakami", new BigDecimal(23.50)));
-		cars.add(new Book(7, new Date(), "Cma barowa", "biały",
+		books.add(new Book(7, new Date(), "Cma barowa", "biały",
 				"Charles Bukowski", new BigDecimal(23.50)));
-		cars.add(new Book(8, new Date(), "Kolonie Knellera", "czarny",
+		books.add(new Book(8, new Date(), "Kolonie Knellera", "czarny",
 				"Etgar Keret", new BigDecimal(23.50)));
 	}
 
 	@Override
 	public List<Book> getBooks() {
-		return cars;
+		return books;
 	}
 }
