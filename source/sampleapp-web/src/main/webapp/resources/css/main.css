@@ -55,6 +55,7 @@ body {
 }
 .navbar-item {
 	height: 45px;
+	width: 300px;
 }
 .navbar-item ul {
 	padding: 0px;

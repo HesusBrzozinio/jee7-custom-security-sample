@@ -24,16 +24,19 @@
 								rendered="#{not sysAuth.loggedIn}" /></li>
 
 						<li><p:commandLink id="logout-link" class="navbar-brand"
-								action="#{sysAuth.doLogout()}" value="Log-out"
+								action="#{sysAuth.doLogout()}" value="Log-out #{sysAuth.username}"
 								rendered="#{sysAuth.loggedIn}" /></li>
 
 						<li><p:commandLink id="item1-link" class="navbar-brand"
 								action="#{sysAuth.createAccount()}" value="Create Account"
 								rendered="#{not sysAuth.loggedIn}" /></li>
 
-						<li><p:commandLink id="item2-link" class="navbar-brand"
-								actionListener="#{mainPage.buttonAction}">ITEM 2</p:commandLink></li>
 					</ul>
+					<h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
+						valueChangeListener="#{language.countryLocaleCodeChanged}"
+						style="width: 100px;">
+						<f:selectItems value="#{language.countriesInMap}" />
+					</h:selectOneMenu>
 				</div>
 			</div>
 		</div>

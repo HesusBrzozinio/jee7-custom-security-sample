@@ -8,7 +8,7 @@ import model.entity.User.UserState;
 
 public class UserDTO {
 
-	private int id;
+	private Integer id;
 	private String username;
 	private String password;
 	private UserState state;
@@ -38,14 +38,13 @@ public class UserDTO {
 		return state;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getPassword() {
 		return password;

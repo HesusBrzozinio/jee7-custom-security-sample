@@ -124,6 +124,19 @@ public class UserManagementController implements Serializable {
 		return null;
 	}
 
+	public String deleteUser() {
+		try {
+			LOG.info("deleting user {}", actualUser);
+			userService.deleteUser(actualUser);
+			allUsers.remove(actualUser);
+		} catch (final Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Delete failed. Try again.", "ERROR MSG");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		return null;
+	}
+
 	public void validateSamePassword(final FacesContext context,
 			final UIComponent toValidate, final Object value) {
 

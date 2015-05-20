@@ -57,7 +57,7 @@
 					</p:commandButton>
 					<p:spacer width="10" />
 
-					<p:commandButton actionListener="#{userManagement.editUserData}"
+					<p:commandButton action="#{userManagement.deleteUser}"
 						icon="ui-icon-trash" title="Delete" update="@form userList">
 						<f:setPropertyActionListener target="#{userManagement.actualUser}"
 							value="#{user}" />

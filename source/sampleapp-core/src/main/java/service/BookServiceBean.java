@@ -10,14 +10,9 @@ import javax.ejb.Stateless;
 
 import model.dto.Book;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Stateless
-public class BookServiceBean implements BookServiceLocal {
+public class BookServiceBean implements BookServiceLocal, BookServiceRemote {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(BookServiceBean.class);
 	private List<Book> books;
 
 	@PostConstruct
